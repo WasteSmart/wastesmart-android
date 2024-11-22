@@ -11,6 +11,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.frxcl.wastesmart.databinding.ActivityMainBinding
 import com.frxcl.wastesmart.ui.encyclopedia.EncyclopediaActivity
+import com.frxcl.wastesmart.ui.profile.ProfileActivity
+import com.frxcl.wastesmart.ui.quiz.QuizActivity
+import com.frxcl.wastesmart.ui.quiz.QuizFinishActivity
+import com.frxcl.wastesmart.ui.scan.ScanResultActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,13 +28,22 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, EncyclopediaActivity::class.java)
         val intentD = Intent(this, EncyclopediaDetailActivity::class.java)
+        val moveToProfile = Intent(this, ProfileActivity::class.java)
+        val moveToResult = Intent(this, ScanResultActivity::class.java)
+        val moveToQuiz = Intent(this, QuizActivity::class.java)
 
         binding.apply {
             constraintLayout3.setOnClickListener{
                 startActivity(intent)
             }
-            buttonIn.setOnClickListener {
-                startActivity(intentD)
+            imageProfileBtn.setOnClickListener{
+                startActivity(moveToProfile)
+            }
+            constraintLayout1.setOnClickListener{
+                startActivity(moveToResult)
+            }
+            constraintLayout2.setOnClickListener{
+                startActivity(moveToQuiz)
             }
         }
     }
