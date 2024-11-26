@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.encyclopedia.EncyclopediaActivity">
+    tools:context=".ui.activity.encyclopedia.EncyclopediaActivity">
 
     <ImageButton
         android:id="@+id/backBtn"

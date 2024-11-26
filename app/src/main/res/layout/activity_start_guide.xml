@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_start_guide_scene"
-    tools:context=".ui.start.StartGuideActivity">
+    tools:context=".ui.activity.start.StartGuideActivity">
 
     <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="16dp"
         android:background="#00000000"
         android:contentDescription="@string/back_text_btn"
@@ -25,7 +26,9 @@
         android:id="@+id/imageView2"
         android:layout_width="292dp"
         android:layout_height="292dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,23 +37,25 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="276dp"
-        android:layout_height="121dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/lorem_ipsum"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.008" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
         android:text="Scan Waste"
         android:textColor="#4E662A"
         android:textSize="32sp"
@@ -62,15 +67,17 @@
 
     <Button
         android:id="@+id/startBtn"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_corner_radius"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:text="Selanjutnya"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.353" />
+        app:layout_constraintVertical_bias="0.829" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
