@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.databinding.ActivityMainBinding
@@ -23,6 +24,8 @@ import com.frxcl.wastesmart.viewmodel.MainViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
+    private lateinit var usn : String
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = SettingPreferences.getInstance(this.dataStore)
-        val viewModel = ViewModelProvider(this, MainViewModelFactory(pref))[MainViewModel::class.java]
-
-        viewModel.getUserName().observe(this) { username: String? ->
-            binding.textViewGreeting.text = "Halo, $username"
-        }
+        viewModel = ViewModelProvider(this, MainViewModelFactory(pref))[MainViewModel::class.java]
 
         val intent = Intent(this, EncyclopediaActivity::class.java)
         val intentD = Intent(this, EncyclopediaDetailActivity::class.java)
@@ -44,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         val moveToResult = Intent(this, ScanResultActivity::class.java)
         val moveToQuiz = Intent(this, QuizActivity::class.java)
 
+        viewModel.getUserName().observe(this) { username: String? ->
+            usn = username!!
+            moveToProfile.putExtra("name", usn)
+            binding.textViewGreeting.text = "Halo, $username"
+        }
 
         binding.apply {
             constraintLayout3.setOnClickListener{

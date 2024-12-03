@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,7 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
 
     private val setupKey = booleanPreferencesKey("setup")
     private val usernameKey = stringPreferencesKey("user_name")
-    private val themeKey = booleanPreferencesKey("theme_setting")
+    private val themeKey = intPreferencesKey("theme_setting")
 
     suspend fun saveSetupState(isSetupDone: Boolean) {
         dataStore.edit { preferences ->
@@ -44,15 +45,15 @@ class SettingPreferences private constructor(private val dataStore: DataStore<Pr
     }
 
 
-    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+    suspend fun saveThemeSetting(state: Int) {
         dataStore.edit { preferences ->
-            preferences[themeKey] = isDarkModeActive
+            preferences[themeKey] = state
         }
     }
 
-    fun getThemeSetting(): Flow<Boolean> {
+    fun getThemeSetting(): Flow<Int> {
         return dataStore.data.map { preferences ->
-            preferences[themeKey] ?: false
+            preferences[themeKey] ?: 0
         }
     }
 

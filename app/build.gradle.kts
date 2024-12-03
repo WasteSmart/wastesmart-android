@@ -8,6 +8,8 @@ android {
     compileSdk = 34
 
     defaultConfig {
+        buildConfigField("String", "BASE_URL", "\"wastesmart-api-566655374802.asia-southeast2.run.app/\"")
+
         applicationId = "com.frxcl.wastesmart"
         minSdk = 24
         targetSdk = 34
@@ -35,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -55,5 +58,11 @@ dependencies {
 
     implementation (libs.ucrop)
     implementation (libs.glide)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.android.async.http)
+    implementation(libs.logging.interceptor)
+
     implementation (libs.androidx.datastore.preferences)
 }
