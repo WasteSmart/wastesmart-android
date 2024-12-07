@@ -10,20 +10,22 @@
     tools:layout_editor_absoluteY="-20dp">
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/titleTop2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:text="#2 Top"
+        android:textAlignment="viewStart"
         android:textColor="#4E662A"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTop1" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/confidentTop2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -33,33 +35,35 @@
         android:textColor="#4E662A"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTop1" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/confidentTop3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:text="Confident Score"
         android:textAlignment="textEnd"
         android:textColor="#4E662A"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar5" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTop2" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/titleTop3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
         android:text="#3 Top"
+        android:textAlignment="viewStart"
         android:textColor="#4E662A"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView25"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar5" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTop2" />
 
     <ImageButton
         android:id="@+id/backBtn"
@@ -75,7 +79,7 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewTitleExa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -90,7 +94,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/imageViewScan"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="32dp"
@@ -99,11 +103,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleExa"
         android:src="@drawable/waste_sample" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/wasteCategoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -114,37 +118,39 @@
         android:textColor="#4E662A"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView12"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewScan"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+        app:layout_constraintStart_toStartOf="@+id/imageViewScan"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewScan" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/titleTop1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
         android:text="#1 Top"
+        android:textAlignment="viewStart"
         android:textColor="#4E662A"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView18"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintEnd_toStartOf="@+id/confidentTop1"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/wasteCategoryTextView" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarTop1"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView18"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintEnd_toEndOf="@+id/confidentTop1"
+        app:layout_constraintStart_toStartOf="@+id/titleTop1"
+        app:layout_constraintTop_toBottomOf="@+id/titleTop1" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/confidentTop1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -154,39 +160,44 @@
         android:textColor="#4E662A"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/wasteCategoryTextView" />
 
     <ProgressBar
-        android:id="@+id/progressBar5"
+        android:id="@+id/progressBarTop2"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView25"
-        app:layout_constraintStart_toStartOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+        app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
+        app:layout_constraintStart_toStartOf="@+id/titleTop3"
+        app:layout_constraintTop_toBottomOf="@+id/titleTop2" />
 
     <ProgressBar
-        android:id="@+id/progressBar6"
+        android:id="@+id/progressBarTop3"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView25"
-        app:layout_constraintStart_toStartOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
+        app:layout_constraintStart_toStartOf="@+id/titleTop3"
+        app:layout_constraintTop_toBottomOf="@+id/titleTop3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="295dp"
-        android:layout_height="158dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/result_tips_shape_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar6"
-        app:layout_constraintVertical_bias="0.322">
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTop3"
+        app:layout_constraintVertical_bias="0.904">
 
         <TextView
             android:id="@+id/textView29"
@@ -202,15 +213,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/textViewTips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:maxLines="4"
             android:text="@string/lorem_ipsum"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

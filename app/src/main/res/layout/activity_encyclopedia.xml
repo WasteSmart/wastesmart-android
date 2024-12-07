@@ -49,57 +49,62 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="266dp"
-                android:layout_height="176dp"
-                android:layout_marginStart="32dp"
+                android:id="@+id/imageViewWaste"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="18dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textViewDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="18dp"
+                android:visibility="gone"
                 android:text="@string/lorem_ipsum"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
-                app:layout_constraintStart_toStartOf="@+id/imageView10"
-                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewWaste"
+                app:layout_constraintStart_toStartOf="@+id/imageViewWaste"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewWaste" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvWasteCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="68dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="78dp"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false"
                 android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView12"
-                app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintEnd_toEndOf="@+id/textViewCat"
+                app:layout_constraintStart_toStartOf="@+id/textViewCat"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCat" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/textViewCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="32dp"
+                android:visibility="gone"
                 android:text="Kategori Sampah"
                 android:textAlignment="center"
                 android:textColor="#4E662A"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView11"
-                app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                app:layout_constraintEnd_toEndOf="@+id/textViewDesc"
+                app:layout_constraintStart_toStartOf="@+id/textViewDesc"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDesc" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

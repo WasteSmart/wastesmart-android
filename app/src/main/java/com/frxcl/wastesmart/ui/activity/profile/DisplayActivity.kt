@@ -12,12 +12,12 @@ import com.frxcl.wastesmart.databinding.ActivityDisplayBinding
 import com.frxcl.wastesmart.ui.activity.start.StartActivity
 import com.frxcl.wastesmart.util.SettingPreferences
 import com.frxcl.wastesmart.util.dataStore
-import com.frxcl.wastesmart.viewmodel.MainViewModel
-import com.frxcl.wastesmart.viewmodel.MainViewModelFactory
+import com.frxcl.wastesmart.viewmodel.SettingViewModel
+import com.frxcl.wastesmart.viewmodel.SettingViewModelFactory
 
 class DisplayActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDisplayBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: SettingViewModel
     private val startActivity = StartActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class DisplayActivity : AppCompatActivity() {
         }
 
         val pref = SettingPreferences.getInstance(this.dataStore)
-        viewModel = ViewModelProvider(this, MainViewModelFactory(pref))[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
         getThemeSettingToDataStore()
 

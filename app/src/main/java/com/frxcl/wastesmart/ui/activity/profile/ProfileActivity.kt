@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.databinding.ActivityEncyclopediaDetailBinding
 import com.frxcl.wastesmart.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {

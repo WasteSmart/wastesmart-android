@@ -1,41 +1,35 @@
 package com.frxcl.wastesmart.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.frxcl.wastesmart.util.SettingPreferences
-import kotlinx.coroutines.flow.Flow
+import com.frxcl.wastesmart.data.Repository
+import com.frxcl.wastesmart.data.remote.response.EncyclopediaOrganicResponse
+import com.frxcl.wastesmart.data.remote.response.PredictResponse
+import com.frxcl.wastesmart.data.remote.response.ResultItem
+import com.frxcl.wastesmart.data.remote.response.TipsResponse
 import kotlinx.coroutines.launch
+import java.io.File
 
-class MainViewModel(private val pref: SettingPreferences): ViewModel() {
-    fun saveSetupState(isSetupDone: Boolean) {
-        viewModelScope.launch {
-            pref.saveSetupState(isSetupDone)
+class MainViewModel(private val repository: Repository): ViewModel() {
+    private val _funFactsData = MutableLiveData<List<String?>?>()
+    val funFactsData: MutableLiveData<List<String?>?> get() = _funFactsData
+
+    private val _tipsData = MutableLiveData<TipsResponse?>()
+    val tipsData: LiveData<TipsResponse?> get() = _tipsData
+
+    fun getFunFacts() {
+        repository.getFunFacts { result ->
+            if (result != null) {
+                _funFactsData.value = result.funfacts
+            }
         }
     }
 
-    fun getSetupState(): LiveData<Boolean> {
-        return pref.getSetupState().asLiveData()
-    }
-
-    fun saveUserName(username: String) {
-        viewModelScope.launch {
-            pref.saveUserName(username)
+    fun getTips() {
+        repository.getTips { result ->
+            _tipsData.value = result
         }
-    }
-
-    fun getUserName(): LiveData<String?> {
-        return pref.getUserName().asLiveData()
-    }
-
-    fun saveThemeSetting(state: Int) {
-        viewModelScope.launch {
-            pref.saveThemeSetting(state)
-        }
-    }
-
-    fun getThemeSetting(): LiveData<Int?> {
-            return pref.getThemeSetting().asLiveData()
     }
 }

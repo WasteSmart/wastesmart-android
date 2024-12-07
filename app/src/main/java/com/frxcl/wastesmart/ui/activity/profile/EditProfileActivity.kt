@@ -23,8 +23,8 @@ import com.frxcl.wastesmart.databinding.ActivityEditProfileBinding
 import com.frxcl.wastesmart.ui.activity.home.MainActivity
 import com.frxcl.wastesmart.util.SettingPreferences
 import com.frxcl.wastesmart.util.dataStore
-import com.frxcl.wastesmart.viewmodel.MainViewModel
-import com.frxcl.wastesmart.viewmodel.MainViewModelFactory
+import com.frxcl.wastesmart.viewmodel.SettingViewModel
+import com.frxcl.wastesmart.viewmodel.SettingViewModelFactory
 import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.io.FileOutputStream
@@ -48,7 +48,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val pref = SettingPreferences.getInstance(this.dataStore)
-        val viewModel = ViewModelProvider(this, MainViewModelFactory(pref))[MainViewModel::class.java]
+        val viewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
         val moveToHome = Intent(this, MainActivity::class.java)
 

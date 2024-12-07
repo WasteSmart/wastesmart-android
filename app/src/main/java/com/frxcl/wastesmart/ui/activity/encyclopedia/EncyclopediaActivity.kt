@@ -1,13 +1,19 @@
 package com.frxcl.wastesmart.ui.activity.encyclopedia
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.data.WasteCatData
+import com.frxcl.wastesmart.data.WasteCategoryData
+import com.frxcl.wastesmart.data.remote.response.Waste
 import com.frxcl.wastesmart.databinding.ActivityEncyclopediaBinding
 import com.frxcl.wastesmart.ui.adapter.WasteCatGridAdapter
 
@@ -27,12 +33,33 @@ class EncyclopediaActivity : AppCompatActivity() {
             insets
         }
 
+        val factory: EncyclopediaViewModelFactory = EncyclopediaViewModelFactory.getInstance(this)
+        val viewModel: EncyclopediaViewModel by viewModels {
+            factory
+        }
+
+        viewModel.getEncyclopedia()
+        viewModel.encData.observe(this, Observer { result ->
+            binding.apply {
+                imageViewWaste.visibility = View.VISIBLE
+                textViewDesc.visibility = View.VISIBLE
+                textViewCat.visibility = View.VISIBLE
+                rvWasteCategory.visibility = View.VISIBLE
+                if (result != null) {
+                    Glide.with(this@EncyclopediaActivity)
+                        .load(result.waste?.imageUrl!!)
+                        .into(imageViewWaste)
+                    textViewDesc.text = result.waste.generalDescription
+                }
+            }
+        })
+
         binding.backBtn.setOnClickListener{onBackPressed()}
 
         val gridItems = listOf(
-            WasteCatData(R.drawable.sample_organic_icon, "Organic"),
-            WasteCatData(R.drawable.sample_nonorganic_icon, "Non Organic"),
-            WasteCatData(R.drawable.sample_b3_icon, "B3"),
+            WasteCategoryData(1, R.drawable.sample_organic_icon, "Organic"),
+            WasteCategoryData(2, R.drawable.sample_nonorganic_icon, "Non Organic"),
+            WasteCategoryData(3, R.drawable.sample_b3_icon, "B3"),
         )
 
         var gridLayoutManager = GridLayoutManager(this, 2).apply {

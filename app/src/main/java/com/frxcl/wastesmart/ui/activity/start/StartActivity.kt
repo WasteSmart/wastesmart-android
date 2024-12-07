@@ -2,8 +2,6 @@ package com.frxcl.wastesmart.ui.activity.start
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,8 +13,8 @@ import com.frxcl.wastesmart.R
 import com.frxcl.wastesmart.databinding.ActivityStartBinding
 import com.frxcl.wastesmart.util.SettingPreferences
 import com.frxcl.wastesmart.util.dataStore
-import com.frxcl.wastesmart.viewmodel.MainViewModel
-import com.frxcl.wastesmart.viewmodel.MainViewModelFactory
+import com.frxcl.wastesmart.viewmodel.SettingViewModel
+import com.frxcl.wastesmart.viewmodel.SettingViewModelFactory
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
@@ -24,7 +22,7 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val pref = SettingPreferences.getInstance(this.dataStore)
-        val viewModel = ViewModelProvider(this, MainViewModelFactory(pref))[MainViewModel::class.java]
+        val viewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
         val moveToHome = Intent(this, MainActivity::class.java)
         val moveToStart = Intent(this, StartSetupActivity::class.java)
