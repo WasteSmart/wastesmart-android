@@ -19,7 +19,7 @@ class QuizStartActivity : AppCompatActivity() {
     private val viewModel: QuizViewModel by viewModels {
         factory
     }
-    private lateinit var quiz: List<QuizItem>
+    private lateinit var quiz: List<QuizItem> = listOf()
     private var userAnswers = emptyArray<String>()
     private var counter: Int = 0
     private var totalQuestion: Int = 0
@@ -38,6 +38,7 @@ class QuizStartActivity : AppCompatActivity() {
         viewModel.getQuiz()
         viewModel.quizData.observe(this, Observer { list ->
             quiz = list ?: emptyList()
+
         })
 
         println("kuis data di luar viewmodel $quiz")
