@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
-        android:text="Profile"
+        android:text="Profil"
         android:textAlignment="center"
         android:textColor="#4E662A"
         android:textSize="24sp"
@@ -37,20 +37,22 @@
 
     <ImageView
         android:id="@+id/imageViewPfp"
-        android:layout_width="158dp"
-        android:layout_height="160dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="68dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleExa"
-        app:srcCompat="@drawable/baseline_account_circle_180_large" />
+        app:srcCompat="@drawable/baseline_account_circle_large" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Display"
+        android:text="Tampilan"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
@@ -65,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
-        android:text="Edit Profile"
+        android:text="Ubah Profil"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -77,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="User"
+        android:text="Pengguna"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"

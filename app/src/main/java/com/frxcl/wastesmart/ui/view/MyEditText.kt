@@ -36,7 +36,7 @@ class MyEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Enter your name here"
+        hint = "Masukan nama kamu disini"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

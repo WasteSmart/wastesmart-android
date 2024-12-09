@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +54,7 @@ class CameraActivity : AppCompatActivity() {
 
 
     private fun startCamera() {
+        setLoading(true)
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -83,9 +85,11 @@ class CameraActivity : AppCompatActivity() {
                 Log.e(TAG, "startCamera: ${exc.message}")
             }
         }, ContextCompat.getMainExecutor(this))
+        setLoading(false)
     }
 
     private fun takePhoto() {
+        setLoading(true)
         val imageCapture = imageCapture ?: return
 
         val photoFile = createCustomTempFile(application)
@@ -99,20 +103,29 @@ class CameraActivity : AppCompatActivity() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent(this@CameraActivity, ScanResultActivity::class.java)
                     intent.putExtra("scanImageUri", output.savedUri)
+                    setLoading(false)
                     startActivity(intent)
                     finish()
                 }
 
                 override fun onError(exc: ImageCaptureException) {
+                    setLoading(false)
                     Toast.makeText(
                         this@CameraActivity,
                         "Gagal mengambil gambar.",
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.e(TAG, "onError: ${exc.message}")
                 }
             }
         )
+    }
+
+    fun setLoading(p1: Boolean) {
+        if (p1) {
+            binding.progressBarCamera.visibility = View.VISIBLE
+        } else {
+            binding.progressBarCamera.visibility = View.GONE
+        }
     }
 
     companion object {
@@ -120,5 +133,4 @@ class CameraActivity : AppCompatActivity() {
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         const val CAMERAX_RESULT = 200
     }
-
 }

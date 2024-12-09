@@ -9,61 +9,7 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-20dp">
 
-    <TextView
-        android:id="@+id/titleTop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:text="#2 Top"
-        android:textAlignment="viewStart"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarTop1" />
 
-    <TextView
-        android:id="@+id/confidentTop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:text="Confident Score"
-        android:textAlignment="textEnd"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarTop1" />
-
-    <TextView
-        android:id="@+id/confidentTop3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:text="Confident Score"
-        android:textAlignment="textEnd"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarTop2" />
-
-    <TextView
-        android:id="@+id/titleTop3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:text="#3 Top"
-        android:textAlignment="viewStart"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarTop2" />
 
     <ImageButton
         android:id="@+id/backBtn"
@@ -82,9 +28,9 @@
         android:id="@+id/textViewTitleExa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="23dp"
         android:gravity="center_horizontal"
-        android:text="Result"
+        android:text="Hasil"
         android:textAlignment="center"
         android:textColor="#4E662A"
         android:textSize="24sp"
@@ -98,13 +44,13 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="34dp"
         android:layout_marginEnd="32dp"
+        android:src="@drawable/baseline_image_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleExa"
-        android:src="@drawable/waste_sample" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleExa" />
 
     <TextView
         android:id="@+id/wasteCategoryTextView"
@@ -113,91 +59,178 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
-        android:text="Waste Category"
+        android:text="Kategori Sampah"
         android:textAlignment="center"
         android:textColor="#4E662A"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/imageViewScan"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@+id/imageViewScan"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewScan" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewScan"
+        tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/titleTop1"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        android:text="#1 Top"
-        android:textAlignment="viewStart"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/confidentTop1"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wasteCategoryTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/wasteCategoryTextView">
 
-    <ProgressBar
-        android:id="@+id/progressBarTop1"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/confidentTop1"
-        app:layout_constraintStart_toStartOf="@+id/titleTop1"
-        app:layout_constraintTop_toBottomOf="@+id/titleTop1" />
+        <TextView
+            android:id="@+id/titleTop1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#1 Top"
+            android:textAlignment="viewStart"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/confidentTop1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/confidentTop1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="32dp"
-        android:text="Confident Score"
-        android:textAlignment="textEnd"
-        android:textColor="#4E662A"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wasteCategoryTextView" />
+        <ProgressBar
+            android:id="@+id/progressBarTop1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/confidentTop1"
+            app:layout_constraintStart_toStartOf="@+id/titleTop1"
+            app:layout_constraintTop_toBottomOf="@+id/titleTop1"
+            tools:visibility="visible" />
 
-    <ProgressBar
-        android:id="@+id/progressBarTop2"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
-        app:layout_constraintStart_toStartOf="@+id/titleTop3"
-        app:layout_constraintTop_toBottomOf="@+id/titleTop2" />
+        <TextView
+            android:id="@+id/confidentTop1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confident Score"
+            android:textAlignment="textEnd"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
-    <ProgressBar
-        android:id="@+id/progressBarTop3"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
-        app:layout_constraintStart_toStartOf="@+id/titleTop3"
-        app:layout_constraintTop_toBottomOf="@+id/titleTop3" />
+        <ProgressBar
+            android:id="@+id/progressBarTop2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
+            app:layout_constraintStart_toStartOf="@+id/titleTop3"
+            app:layout_constraintTop_toBottomOf="@+id/titleTop2"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBarTop3"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/confidentTop3"
+            app:layout_constraintStart_toStartOf="@+id/titleTop3"
+            app:layout_constraintTop_toBottomOf="@+id/titleTop3"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/titleTop2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="#2 Top"
+            android:textAlignment="viewStart"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarTop1"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/confidentTop2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Confident Score"
+            android:textAlignment="textEnd"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarTop1"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/confidentTop3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Confident Score"
+            android:textAlignment="textEnd"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarTop2"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/titleTop3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="#3 Top"
+            android:textAlignment="viewStart"
+            android:textColor="#4E662A"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/confidentTop3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarTop2"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/result_tips_shape_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBarTop3"
-        app:layout_constraintVertical_bias="0.904">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView29"
@@ -208,26 +241,46 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/textViewTips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:maxLines="4"
             android:text="@string/lorem_ipsum"
             android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textSize="15sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            app:layout_constraintTop_toBottomOf="@+id/textView29"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLoading2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,13 +2,20 @@ package com.frxcl.wastesmart.ui.activity.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,7 +52,16 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var progressBar: ProgressBar
     private lateinit var usn : String
+
+    private val handler = Handler()
+    private val checkInterval: Long = 5000
+
+    private val mainfactory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
+    private val mainviewModel: MainViewModel by viewModels {
+        mainfactory
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +69,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val mainfactory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
-        val mainviewModel: MainViewModel by viewModels {
-            mainfactory
-        }
 
         val pref = SettingPreferences.getInstance(this.dataStore)
         val settingviewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
@@ -77,16 +88,44 @@ class MainActivity : AppCompatActivity() {
                 startActivity(moveToProfile)
             }
             imageButtonCamera.setOnClickListener{
-                startCameraX()
+                if (isConnectionOk(this@MainActivity)) {
+                    startCameraX()
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             imageButtonGallery.setOnClickListener{
-                startGallery()
+                if (isConnectionOk(this@MainActivity)) {
+                    startGallery()
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             constraintLayout3.setOnClickListener{
-                startActivity(moveToQuiz)
+                if (isConnectionOk(this@MainActivity)) {
+                    startActivity(moveToQuiz)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                    ).show()
+                }
             }
             constraintLayout4.setOnClickListener{
-                startActivity(moveToEncyclopedia)
+                if (isConnectionOk(this@MainActivity)) {
+                    startActivity(moveToEncyclopedia)
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
 
@@ -94,14 +133,37 @@ class MainActivity : AppCompatActivity() {
         val bitmap = loadImage(fileName)
         setImage(bitmap)
 
-        mainviewModel.getFunFacts()
-        mainviewModel.funFactsData.observe(this, Observer { result ->
-            val funFacts = result?.get(Random.nextInt(0, result.size))
-            binding.textViewFFList.text = funFacts
-        })
+        if (isConnectionOk(this)) {
+            getFunFact()
+        } else {
+            checkInternetConnection()
+            Toast.makeText(
+                this,
+                "Periksa koneksi internet anda.", Toast.LENGTH_LONG
+            ).show()
+        }
 
         requestCameraPermissions()
 
+    }
+
+    private fun getFunFact() {
+        binding.constraintLayout7.visibility = View.VISIBLE
+        progressBar = binding.progressBarFunFact
+
+        progressBar.visibility = View.VISIBLE
+        mainviewModel.getFunFacts()
+        mainviewModel.funFactsData.observe(this, Observer { result ->
+            result?.let {
+                val funFacts = it[Random.nextInt(0, result.size)]
+                binding.apply {
+                    textViewFF.visibility = View.VISIBLE
+                    textViewFFList.visibility = View.VISIBLE
+                    textViewFFList.text = funFacts
+                    progressBar.visibility = View.GONE
+                }
+            }
+        })
     }
 
     private fun loadImage(fileName: String): Bitmap? {
@@ -182,6 +244,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkInternetConnection() {
+        handler.post(object : Runnable {
+            override fun run() {
+                if (isConnectionOk(this@MainActivity)) {
+                    recreate() // Reload the activity
+                } else {
+                    handler.postDelayed(this, checkInterval)
+                }
+            }
+        })
+    }
+
+    @SuppressLint("ServiceCast", "ObsoleteSdkInt")
+    fun isConnectionOk(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork?.let {
+                connectivityManager.getNetworkCapabilities(it)
+            }
+            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
@@ -191,11 +279,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(moveToResult)
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
+            Toast.makeText(
+                this,
+                "Kesalahan $cropError .", Toast.LENGTH_LONG
+            ).show()
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
     }
 }

@@ -7,17 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.databinding.ActivityStartBinding
-import com.frxcl.wastesmart.databinding.ActivityStartGuideBinding
+import com.frxcl.wastesmart.databinding.ActivityStartGuideOneBinding
 import com.frxcl.wastesmart.ui.activity.profile.SetProfileActivity
 
-class StartGuideActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityStartGuideBinding
+class StartGuideOneActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStartGuideOneBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityStartGuideBinding.inflate(layoutInflater)
+        binding = ActivityStartGuideOneBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -26,14 +25,14 @@ class StartGuideActivity : AppCompatActivity() {
             insets
         }
 
-        val moveToSetProfile = Intent(this, SetProfileActivity::class.java)
+        val moveToTwo = Intent(this, StartGuideTwoActivity::class.java)
 
         binding.apply {
             backBtn.setOnClickListener{
                 onBackPressed()
             }
             startBtn.setOnClickListener {
-                startActivity(moveToSetProfile)
+                startActivity(moveToTwo)
             }
         }
 

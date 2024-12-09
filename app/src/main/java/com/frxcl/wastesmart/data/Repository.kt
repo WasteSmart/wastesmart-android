@@ -1,30 +1,16 @@
 package com.frxcl.wastesmart.data
 
-import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import com.frxcl.wastesmart.data.remote.response.EncyclopediaNonOrganicResponse
 import com.frxcl.wastesmart.data.remote.response.EncyclopediaResponse
 import com.frxcl.wastesmart.data.remote.response.FunFactsResponse
 import com.frxcl.wastesmart.data.remote.response.EncyclopediaOrganicResponse
 import com.frxcl.wastesmart.data.remote.response.EncyclopediaToxicResponse
-import com.frxcl.wastesmart.data.remote.response.PredictResponse
-import com.frxcl.wastesmart.data.remote.response.ResultItem
+import com.frxcl.wastesmart.data.remote.response.QuizResponse
 import com.frxcl.wastesmart.data.remote.response.TipsResponse
-import com.frxcl.wastesmart.data.remote.retrofit.ApiConfig
 import com.frxcl.wastesmart.data.remote.retrofit.ApiService
-import com.frxcl.wastesmart.util.reduceFileImage
-import com.frxcl.wastesmart.util.uriToFile
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 class Repository private constructor(
     private val apiService: ApiService
@@ -38,6 +24,20 @@ class Repository private constructor(
                 }
             }
             override fun onFailure(call: Call<TipsResponse>, t: Throwable) {
+
+            }
+        })
+    }
+
+    fun getQuiz(callback: (QuizResponse) -> Unit) {
+        val client = apiService.getQuiz()
+        client.enqueue(object : Callback<QuizResponse> {
+            override fun onResponse(call: Call<QuizResponse>, response: Response<QuizResponse>) {
+                if (response.isSuccessful) {
+                    callback(response.body()!!)
+                }
+            }
+            override fun onFailure(call: Call<QuizResponse>, t: Throwable) {
 
             }
         })

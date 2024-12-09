@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"wastesmart-api-566655374802.asia-southeast2.run.app/\"")
+        buildConfigField("String", "BASE_URL", "\"https://wastesmart-api-566655374802.asia-southeast2.run.app/\"")
 
         applicationId = "com.frxcl.wastesmart"
         minSdk = 24

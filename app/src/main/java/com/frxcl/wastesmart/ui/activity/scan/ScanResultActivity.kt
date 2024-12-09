@@ -1,9 +1,15 @@
 package com.frxcl.wastesmart.ui.activity.scan
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -58,12 +64,20 @@ class ScanResultActivity : AppCompatActivity() {
             }
         }
 
-        uploadWasteImage(imageUri)
+        if (isConnectionOk(this)) {
+            uploadWasteImage(imageUri)
+        } else {
+            Toast.makeText(
+                this@ScanResultActivity,
+                "Periksa koneksi internet anda.", Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun uploadWasteImage(imageUri: Uri){
-        val imageFile = uriToFile(imageUri, this)
+        setLoading(true)
+        val imageFile = uriToFile(imageUri, this).reduceFileImage()
 
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
         val multipartBody = MultipartBody.Part.createFormData(
@@ -99,16 +113,21 @@ class ScanResultActivity : AppCompatActivity() {
                             confidentTop3.text = resultThree.percentage.toString()  + "%"
                         }
                     }
+                    setLoading(false)
                     showTips(resultOne!!.name!!)
                 }
 
             } catch (e: HttpException) {
-
+                Toast.makeText(
+                    this@ScanResultActivity,
+                    "Gagal memuat hasil.", Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     private fun showTips(p1: String) {
+        setLoading2(true)
         viewModel.getTips()
         viewModel.tipsData.observe(this) { result ->
             val tips: Map<String, String> = mapOf(
@@ -137,8 +156,70 @@ class ScanResultActivity : AppCompatActivity() {
                     binding.textViewTips.text = tips.entries.random().toString()
                 }
             }
+            if (result != null) {
+                setLoading2(false)
+            }
+        }
+    }
 
+    @SuppressLint("ServiceCast", "ObsoleteSdkInt")
+    fun isConnectionOk(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork?.let {
+                connectivityManager.getNetworkCapabilities(it)
+            }
+            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+    }
 
+    fun setLoading(p1: Boolean) {
+        if (p1) {
+            binding.apply {
+                progressBarLoading.visibility = View.VISIBLE
+                wasteCategoryTextView.visibility = View.GONE
+                titleTop1.visibility = View.GONE
+                confidentTop1.visibility = View.GONE
+                progressBarTop1.visibility = View.GONE
+                titleTop2.visibility = View.GONE
+                confidentTop2.visibility = View.GONE
+                progressBarTop2.visibility = View.GONE
+                titleTop3.visibility = View.GONE
+                confidentTop3.visibility = View.GONE
+                progressBarTop3.visibility = View.GONE
+            }
+        } else {
+            binding.apply {
+                progressBarLoading.visibility = View.GONE
+                wasteCategoryTextView.visibility = View.VISIBLE
+                titleTop1.visibility = View.VISIBLE
+                confidentTop1.visibility = View.VISIBLE
+                progressBarTop1.visibility = View.VISIBLE
+                titleTop2.visibility = View.VISIBLE
+                confidentTop2.visibility = View.VISIBLE
+                progressBarTop2.visibility = View.VISIBLE
+                titleTop3.visibility = View.VISIBLE
+                confidentTop3.visibility = View.VISIBLE
+                progressBarTop3.visibility = View.VISIBLE
+            }
+        }
+    }
+    fun setLoading2(p1: Boolean) {
+        if (p1) {
+            binding.apply {
+                progressBarLoading2.visibility = View.VISIBLE
+                textView29.visibility = View.GONE
+                textViewTips.visibility = View.GONE
+            }
+        } else {
+            binding.apply {
+                binding.progressBarLoading2.visibility = View.GONE
+                textView29.visibility = View.VISIBLE
+                textViewTips.visibility = View.VISIBLE
+            }
         }
     }
 }

@@ -30,8 +30,10 @@ class StartActivity : AppCompatActivity() {
         viewModel.getSetupState().observe(this@StartActivity) { isSetupDone: Boolean ->
             if (isSetupDone) {
                 startActivity(moveToHome)
+                finish()
             } else {
                 startActivity(moveToStart)
+                finish()
             }
         }
 
