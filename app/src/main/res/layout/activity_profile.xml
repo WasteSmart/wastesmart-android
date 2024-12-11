@@ -55,14 +55,14 @@
         android:text="Tampilan"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/textViewEditProfile"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textViewEditProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditProfile"
         app:layout_constraintVertical_bias="0.105" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

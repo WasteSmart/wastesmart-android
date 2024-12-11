@@ -1,9 +1,11 @@
 package com.frxcl.wastesmart.ui.activity.profile
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
 import com.frxcl.wastesmart.databinding.ActivityProfileBinding
+import java.io.File
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -32,34 +35,27 @@ class ProfileActivity : AppCompatActivity() {
         usn = intent.getStringExtra("name").toString()
         moveToEditProfile.putExtra("name", usn)
 
+        loadUserPfp()
+
         binding.apply {
             textViewUsn.text = usn
             backBtn.setOnClickListener{onBackPressed()}
-            textView2.setOnClickListener {
+            textViewEditProfile.setOnClickListener {
                 startActivity(moveToEditProfile)
             }
             textView3.setOnClickListener {
                 startActivity(moveToChangeTheme)
             }
         }
-
-        val fileName = "cropped_image.png"
-        val bitmap = loadImage(fileName)
-        setImage(bitmap)
     }
 
-    private fun loadImage(fileName: String): Bitmap? {
-        try {
-            val fileInputStream = openFileInput(fileName)
-            return BitmapFactory.decodeStream(fileInputStream)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        }
-    }
+    private fun loadUserPfp() {
+        val fileName = "user_pfp.png"
+        val directory = getDir("images", Context.MODE_PRIVATE)
+        val file = File(directory, fileName)
 
-    private fun setImage(bitmap: Bitmap?) {
-        if (bitmap != null) {
+        if (file.exists()) {
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             Glide.with(this)
                 .load(bitmap)
                 .circleCrop()

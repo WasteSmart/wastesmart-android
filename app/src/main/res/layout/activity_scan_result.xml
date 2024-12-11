@@ -9,8 +9,6 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-20dp">
 
-
-
     <ImageButton
         android:id="@+id/backBtn"
         android:layout_width="48dp"
@@ -103,6 +101,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="16dip"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/confidentTop1"
             app:layout_constraintStart_toStartOf="@+id/titleTop1"

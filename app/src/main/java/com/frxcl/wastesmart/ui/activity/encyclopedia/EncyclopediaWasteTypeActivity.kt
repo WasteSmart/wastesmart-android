@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -38,6 +39,8 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        binding.backBtn.setOnClickListener { onBackPressed() }
 
         id = intent.getIntExtra("idCat", 0)
 
@@ -177,7 +180,14 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
     }
 
     private fun setContent(title: String?, desc: String?, imageUrl: String?, howToManage: String?) {
-        binding.textViewTitle.text = title
+        val totalWords = title?.split("\\s+".toRegex())?.size
+        if (totalWords != null) {
+            if (totalWords >= 2 ) {
+                binding.textViewTitle.text = title.toString().split(" ").take(2).joinToString(" ")
+            } else {
+                binding.textViewTitle.text = title
+            }
+        }
         Glide.with(this)
             .load(imageUrl)
             .into(binding.imageViewWaste)
@@ -201,6 +211,7 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
     }
 
     private fun setLoading(p1: Boolean) {
+        val animation = AnimationUtils.loadAnimation(this@EncyclopediaWasteTypeActivity, R.anim.fade_in_fast)
         binding.apply {
             if (p1) {
                 progressBar.visibility = View.VISIBLE
@@ -218,6 +229,13 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
                 textViewCaraMengelola.visibility = View.VISIBLE
                 textViewRVTitle.visibility = View.VISIBLE
                 rvWasteExample.visibility = View.VISIBLE
+
+                imageViewWaste.startAnimation(animation)
+                textViewDesc.startAnimation(animation)
+                textViewCM.startAnimation(animation)
+                textViewCaraMengelola.startAnimation(animation)
+                textViewRVTitle.startAnimation(animation)
+                rvWasteExample.startAnimation(animation)
             }
         }
     }

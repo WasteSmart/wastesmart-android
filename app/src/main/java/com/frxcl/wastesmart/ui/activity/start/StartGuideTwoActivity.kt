@@ -2,14 +2,16 @@ package com.frxcl.wastesmart.ui.activity.start
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.databinding.ActivityStartGuideOneBinding
 import com.frxcl.wastesmart.databinding.ActivityStartGuideTwoBinding
-import com.frxcl.wastesmart.ui.activity.profile.SetProfileActivity
+
 
 class StartGuideTwoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartGuideTwoBinding
@@ -26,6 +28,11 @@ class StartGuideTwoActivity : AppCompatActivity() {
         }
 
         val moveToThree = Intent(this, StartGuideThreeActivity::class.java)
+
+        val view = findViewById<View>(android.R.id.content)
+        val mLoadAnimation: Animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
+        mLoadAnimation.duration = 2000
+        view.startAnimation(mLoadAnimation)
 
         binding.apply {
             backBtn.setOnClickListener{

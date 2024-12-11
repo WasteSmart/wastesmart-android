@@ -52,9 +52,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         val moveToHome = Intent(this, MainActivity::class.java)
 
-        val fileName = "cropped_image.png"
-        val bitmap = loadImage(fileName)
-        setImage(bitmap)
+        loadUserPfp()
 
         binding.apply {
             backBtn.setOnClickListener{
@@ -84,18 +82,13 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadImage(fileName: String): Bitmap? {
-        try {
-            val fileInputStream = openFileInput(fileName)
-            return BitmapFactory.decodeStream(fileInputStream)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        }
-    }
+    private fun loadUserPfp() {
+        val fileName = "user_pfp.png"
+        val directory = getDir("images", Context.MODE_PRIVATE)
+        val file = File(directory, fileName)
 
-    private fun setImage(bitmap: Bitmap?) {
-        if (bitmap != null) {
+        if (file.exists()) {
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             Glide.with(this)
                 .load(bitmap)
                 .circleCrop()
@@ -165,17 +158,24 @@ class EditProfileActivity : AppCompatActivity() {
         val inputStream = contentResolver.openInputStream(uri)
         val bitmap = BitmapFactory.decodeStream(inputStream)
 
-        val fileName = "cropped_image.png"
+        val fileName = "user_pfp.png"
         val fileOutputStream: FileOutputStream
 
         try {
-            fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE)
+            val directory = getDir("images", Context.MODE_PRIVATE)
+            val file = File(directory, fileName)
+
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+
+            fileOutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             fileOutputStream.close()
-            Toast.makeText(this, "Image saved successfully!", Toast.LENGTH_SHORT).show()
+            println("simpan")
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Error saving image: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Gagal menyimpan gambar: ${e.message}", Toast.LENGTH_SHORT).show()
         } finally {
             inputStream?.close()
         }

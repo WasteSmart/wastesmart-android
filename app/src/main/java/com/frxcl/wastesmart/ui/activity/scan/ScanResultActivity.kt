@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -177,6 +178,7 @@ class ScanResultActivity : AppCompatActivity() {
     }
 
     fun setLoading(p1: Boolean) {
+        val animation = AnimationUtils.loadAnimation(this@ScanResultActivity, R.anim.fade_in_medium)
         if (p1) {
             binding.apply {
                 progressBarLoading.visibility = View.VISIBLE
@@ -204,10 +206,21 @@ class ScanResultActivity : AppCompatActivity() {
                 titleTop3.visibility = View.VISIBLE
                 confidentTop3.visibility = View.VISIBLE
                 progressBarTop3.visibility = View.VISIBLE
+                wasteCategoryTextView.startAnimation(animation)
+                titleTop1.startAnimation(animation)
+                confidentTop1.startAnimation(animation)
+                progressBarTop1.startAnimation(animation)
+                titleTop2.startAnimation(animation)
+                confidentTop2.startAnimation(animation)
+                progressBarTop2.startAnimation(animation)
+                titleTop3.startAnimation(animation)
+                confidentTop3.startAnimation(animation)
+                progressBarTop3.startAnimation(animation)
             }
         }
     }
     fun setLoading2(p1: Boolean) {
+        val animation = AnimationUtils.loadAnimation(this@ScanResultActivity, R.anim.fade_in_medium)
         if (p1) {
             binding.apply {
                 progressBarLoading2.visibility = View.VISIBLE
@@ -218,7 +231,9 @@ class ScanResultActivity : AppCompatActivity() {
             binding.apply {
                 binding.progressBarLoading2.visibility = View.GONE
                 textView29.visibility = View.VISIBLE
+                textView29.startAnimation(animation)
                 textViewTips.visibility = View.VISIBLE
+                textViewTips.startAnimation(animation)
             }
         }
     }

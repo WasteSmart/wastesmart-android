@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -48,7 +49,14 @@ class EncyclopediaWasteExampleActivity : AppCompatActivity() {
         val imageUrl = intent.getStringExtra("imageUrlExa")
 
         binding.apply {
-            textViewTitleExa.text = title
+            val totalWords = title?.split("\\s+".toRegex())?.size
+            if (totalWords != null) {
+                if (totalWords >= 2 ) {
+                    binding.textViewTitleExa.text = title.toString().split(" ").take(2).joinToString(" ")
+                } else {
+                    binding.textViewTitleExa.text = title
+                }
+            }
             Glide.with(this@EncyclopediaWasteExampleActivity)
                 .load(imageUrl)
                 .into(imageViewWaste)
@@ -73,6 +81,7 @@ class EncyclopediaWasteExampleActivity : AppCompatActivity() {
     }
 
     private fun setLoading(p1: Boolean) {
+        val animation = AnimationUtils.loadAnimation(this@EncyclopediaWasteExampleActivity, R.anim.fade_in_fast)
         binding.apply {
             if (p1) {
                 progressBar.visibility = View.VISIBLE
@@ -82,6 +91,8 @@ class EncyclopediaWasteExampleActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
                 imageViewWaste.visibility = View.VISIBLE
                 textViewDesc.visibility = View.VISIBLE
+                imageViewWaste.startAnimation(animation)
+                textViewDesc.startAnimation(animation)
             }
         }
     }

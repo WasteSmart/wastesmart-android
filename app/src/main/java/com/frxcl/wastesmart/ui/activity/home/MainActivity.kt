@@ -6,16 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.widget.ProgressBar
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,9 +30,8 @@ import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
 import com.frxcl.wastesmart.databinding.ActivityMainBinding
 import com.frxcl.wastesmart.ui.activity.encyclopedia.EncyclopediaActivity
-import com.frxcl.wastesmart.ui.activity.encyclopedia.EncyclopediaWasteExampleActivity
 import com.frxcl.wastesmart.ui.activity.profile.ProfileActivity
-import com.frxcl.wastesmart.ui.activity.quiz.QuizActivity
+import com.frxcl.wastesmart.ui.activity.quiz.QuizStartActivity
 import com.frxcl.wastesmart.ui.activity.scan.CameraActivity
 import com.frxcl.wastesmart.ui.activity.scan.CameraActivity.Companion.CAMERAX_RESULT
 import com.frxcl.wastesmart.ui.activity.scan.ScanResultActivity
@@ -52,7 +51,6 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var progressBar: ProgressBar
     private lateinit var usn : String
 
     private val handler = Handler()
@@ -75,36 +73,70 @@ class MainActivity : AppCompatActivity() {
 
         val moveToEncyclopedia = Intent(this, EncyclopediaActivity::class.java)
         val moveToProfile = Intent(this, ProfileActivity::class.java)
-        val moveToQuiz = Intent(this, QuizActivity::class.java)
+        val moveToQuiz = Intent(this, QuizStartActivity::class.java)
 
         settingviewModel.getUserName().observe(this) { username: String? ->
-            usn = username!!
-            moveToProfile.putExtra("name", usn)
-            binding.textViewGreeting.text = "Halo, $username"
+            usn = username.toString().split(" ").take(2).joinToString(" ")
+            moveToProfile.putExtra("name", username)
+            binding.textViewGreeting.text = "Halo, $usn"
         }
+
+        loadUserPfp()
 
         binding.apply {
             imageProfileBtn.setOnClickListener{
                 startActivity(moveToProfile)
             }
             imageButtonCamera.setOnClickListener{
-                if (isConnectionOk(this@MainActivity)) {
-                    startCameraX()
+                if (hasCameraPermission()) {
+                    if (isConnectionOk(this@MainActivity)) {
+                        startCameraX()
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
-                    ).show()
+                    requestCameraPermissions()
+                    if (!hasCameraPermission()) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Fitur ini membutuhkan izin kamera.", Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
             imageButtonGallery.setOnClickListener{
-                if (isConnectionOk(this@MainActivity)) {
-                    startGallery()
+                if (SDK_INT >= Build.VERSION_CODES.R) {
+                    if (isConnectionOk(this@MainActivity)) {
+                        startGallery()
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
-                    ).show()
+                    if (hasFilePermission()) {
+                        if (isConnectionOk(this@MainActivity)) {
+                            startGallery()
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Fitur ini membutuhkan koneksi internet.", Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    } else {
+                        requestFileWritePermission()
+                        requestFileReadPermission()
+                        if (!hasFilePermission()) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Fitur ini membutuhkan izin membaca penyimpanan.", Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
             }
             constraintLayout3.setOnClickListener{
@@ -129,10 +161,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val fileName = "cropped_image.png"
-        val bitmap = loadImage(fileName)
-        setImage(bitmap)
-
         if (isConnectionOk(this)) {
             getFunFact()
         } else {
@@ -142,16 +170,11 @@ class MainActivity : AppCompatActivity() {
                 "Periksa koneksi internet anda.", Toast.LENGTH_LONG
             ).show()
         }
-
-        requestCameraPermissions()
-
     }
 
     private fun getFunFact() {
-        binding.constraintLayout7.visibility = View.VISIBLE
-        progressBar = binding.progressBarFunFact
-
-        progressBar.visibility = View.VISIBLE
+        val animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_in_medium)
+        binding.constraintLayout7.visibility = View.GONE
         mainviewModel.getFunFacts()
         mainviewModel.funFactsData.observe(this, Observer { result ->
             result?.let {
@@ -160,24 +183,20 @@ class MainActivity : AppCompatActivity() {
                     textViewFF.visibility = View.VISIBLE
                     textViewFFList.visibility = View.VISIBLE
                     textViewFFList.text = funFacts
-                    progressBar.visibility = View.GONE
+                    constraintLayout7.visibility = View.VISIBLE
+                    constraintLayout7.startAnimation(animation)
                 }
             }
         })
     }
 
-    private fun loadImage(fileName: String): Bitmap? {
-        try {
-            val fileInputStream = openFileInput(fileName)
-            return BitmapFactory.decodeStream(fileInputStream)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        }
-    }
+    private fun loadUserPfp() {
+        val fileName = "user_pfp.png"
+        val directory = getDir("images", Context.MODE_PRIVATE)
+        val file = File(directory, fileName)
 
-    private fun setImage(bitmap: Bitmap?) {
-        if (bitmap != null) {
+        if (file.exists()) {
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             Glide.with(this)
                 .load(bitmap)
                 .circleCrop()
@@ -189,6 +208,28 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 0)
         }
+    }
+
+    private fun requestFileReadPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 0)
+        }
+    }
+
+    private fun requestFileWritePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+        }
+    }
+
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun hasFilePermission(): Boolean {
+        val write = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        val read =  ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        return write && read
     }
 
     private fun startCameraX() {

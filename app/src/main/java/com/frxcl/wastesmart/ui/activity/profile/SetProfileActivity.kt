@@ -71,6 +71,8 @@ class SetProfileActivity : AppCompatActivity() {
             doneBtn.setOnClickListener {
                 fixUri?.let { saveImageToDatastore(it) }
                 startActivity(moveToHome)
+                finish()
+                finishAffinity()
                 viewModel.saveUserName(usernameEditText.text.toString())
                 viewModel.saveSetupState(true)
             }
@@ -105,7 +107,7 @@ class SetProfileActivity : AppCompatActivity() {
         val intent = Intent()
         intent.action = ACTION_GET_CONTENT
         intent.type = "image/*"
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        val chooser = Intent.createChooser(intent, "Pilih gambar")
         launcherIntentGallery.launch(chooser)
     }
 
@@ -144,17 +146,23 @@ class SetProfileActivity : AppCompatActivity() {
         val inputStream = contentResolver.openInputStream(uri)
         val bitmap = BitmapFactory.decodeStream(inputStream)
 
-        val fileName = "cropped_image.png"
+        val fileName = "user_pfp.png"
         val fileOutputStream: FileOutputStream
 
         try {
-            fileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE)
+            val directory = getDir("images", Context.MODE_PRIVATE)
+            val file = File(directory, fileName)
+
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+
+            fileOutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             fileOutputStream.close()
-            Toast.makeText(this, "Image saved successfully!", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Error saving image: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Gagal menyimpan gambar: ${e.message}", Toast.LENGTH_SHORT).show()
         } finally {
             inputStream?.close()
         }

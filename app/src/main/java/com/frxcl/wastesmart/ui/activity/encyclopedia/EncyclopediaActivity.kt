@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -73,8 +74,8 @@ class EncyclopediaActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener{onBackPressed()}
 
         val gridItems = listOf(
-            WasteCategoryData(1, R.drawable.sample_organic_icon, "Organic"),
-            WasteCategoryData(2, R.drawable.sample_nonorganic_icon, "Non Organic"),
+            WasteCategoryData(1, R.drawable.sample_organic_icon, "Organik"),
+            WasteCategoryData(2, R.drawable.sample_nonorganic_icon, "Anorganik"),
             WasteCategoryData(3, R.drawable.sample_b3_icon, "B3"),
         )
 
@@ -117,6 +118,7 @@ class EncyclopediaActivity : AppCompatActivity() {
     }
 
     fun setLoading(p1: Boolean) {
+        val animation = AnimationUtils.loadAnimation(this@EncyclopediaActivity, R.anim.fade_in_fast)
         binding.apply {
             if (p1) {
                 progressBar.visibility = View.VISIBLE
@@ -130,6 +132,11 @@ class EncyclopediaActivity : AppCompatActivity() {
                 textViewDesc.visibility = View.VISIBLE
                 textViewCat.visibility = View.VISIBLE
                 rvWasteCategory.visibility = View.VISIBLE
+
+                imageViewWaste.startAnimation(animation)
+                textViewDesc.startAnimation(animation)
+                textViewCat.startAnimation(animation)
+                rvWasteCategory.startAnimation(animation)
             }
         }
     }

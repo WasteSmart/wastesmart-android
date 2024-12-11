@@ -25,7 +25,7 @@ class StartSetupActivity : AppCompatActivity() {
 
         val moveToSetup = Intent(this, StartGuideOneActivity::class.java)
 
-        val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in_medium)
 
         binding.apply {
             imageView.startAnimation(fadeInAnimation)
