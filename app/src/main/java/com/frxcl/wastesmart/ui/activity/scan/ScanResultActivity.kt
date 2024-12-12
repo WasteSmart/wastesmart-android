@@ -7,23 +7,18 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.data.remote.response.ResultItem
 import com.frxcl.wastesmart.data.remote.retrofit.ApiConfig
 import com.frxcl.wastesmart.databinding.ActivityScanResultBinding
-import com.frxcl.wastesmart.ui.activity.scan.CameraActivity.Companion.EXTRA_CAMERAX_IMAGE
 import com.frxcl.wastesmart.util.reduceFileImage
 import com.frxcl.wastesmart.util.uriToFile
 import com.frxcl.wastesmart.viewmodel.MainViewModel
@@ -33,13 +28,12 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import kotlin.random.Random
 
 class ScanResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScanResultBinding
     private lateinit var imageUri: Uri
 
-    private val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
+    private val factory: MainViewModelFactory = MainViewModelFactory.getInstance()
     private val viewModel: MainViewModel by viewModels {
         factory
     }
@@ -177,7 +171,7 @@ class ScanResultActivity : AppCompatActivity() {
         }
     }
 
-    fun setLoading(p1: Boolean) {
+    private fun setLoading(p1: Boolean) {
         val animation = AnimationUtils.loadAnimation(this@ScanResultActivity, R.anim.fade_in_medium)
         if (p1) {
             binding.apply {
@@ -219,7 +213,7 @@ class ScanResultActivity : AppCompatActivity() {
             }
         }
     }
-    fun setLoading2(p1: Boolean) {
+    private fun setLoading2(p1: Boolean) {
         val animation = AnimationUtils.loadAnimation(this@ScanResultActivity, R.anim.fade_in_medium)
         if (p1) {
             binding.apply {

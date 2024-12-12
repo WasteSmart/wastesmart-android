@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="Halo, User"
+        android:text="@string/user_greeting_text"
         android:textColor="#4E662A"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Semoga Harimu Menyenangkan!"
+        android:text="@string/user_have_a_nice_day"
         android:textColor="#4B4F4B"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textViewGreeting"
@@ -44,6 +44,7 @@
         android:layout_marginTop="38dp"
         android:layout_marginEnd="2dp"
         android:background="#00000000"
+        android:contentDescription="@string/user_profile_image_desc"
         android:textAlignment="gravity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.923"
@@ -90,6 +91,7 @@
                     android:layout_width="52dp"
                     android:layout_height="48dp"
                     android:background="#00000000"
+                    android:contentDescription="@string/camera_button_desc"
                     android:src="@drawable/camera_icon" />
 
                 <ImageView
@@ -98,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="16dp"
+                    android:contentDescription="@string/line_div_desc"
                     app:srcCompat="@drawable/line_divider" />
 
                 <ImageView
@@ -107,6 +110,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="16dp"
                     android:background="#00000000"
+                    android:contentDescription="@string/gallery_button_desc"
                     app:srcCompat="@drawable/gallery_icon" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -116,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Mulai Pindai Sampah"
+            android:text="@string/scan_waste_start_text"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -141,6 +145,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -160,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Kuis"
+                    android:text="@string/quiz_button_desc"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -176,6 +181,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="50dp"
+                    android:contentDescription="@string/quiz_button_desc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -196,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Ensiklopedia"
+                    android:text="@string/encyclopedia_title"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -212,6 +218,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginEnd="50dp"
+                    android:contentDescription="@string/encyclopedia_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -244,7 +251,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
-            android:text="Fun Fact"
+            android:text="@string/fun_fact_title"
             android:textColor="#4E662A"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -303,6 +310,7 @@
         android:layout_height="68dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/waste_smart_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/waste_smart_icon" />

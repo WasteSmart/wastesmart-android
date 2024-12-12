@@ -55,7 +55,7 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        val factory: EncyclopediaViewModelFactory = EncyclopediaViewModelFactory.getInstance(this)
+        val factory: EncyclopediaViewModelFactory = EncyclopediaViewModelFactory.getInstance()
         val viewModel: EncyclopediaViewModel by viewModels {
             factory
         }
@@ -65,20 +65,20 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
         when (id) {
             1 -> { viewModel.getEncyclopediaOrganic()
                 viewModel.getEncyclopediaOrganicExample()
-                viewModel.encOrganicData.observe(this, Observer { result ->
+                viewModel.encOrganicData.observe(this) { result ->
                     val title = result?.typeOfWaste?.title
                     val desc = result?.typeOfWaste?.description
                     val imageUrl = result?.typeOfWaste?.imageUrl
                     val howToManage = result?.typeOfWaste?.howToManage
                     setContent(title, desc, imageUrl, howToManage)
-                })
-                viewModel.encOrganicExampleData.observe(this, Observer { result ->
+                }
+                viewModel.encOrganicExampleData.observe(this) { result ->
                     if (result != null) {
                         val gridLayoutManager = GridLayoutManager(this, 2).apply {
                             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                                 override fun getSpanSize(position: Int): Int {
-                                    val adapter = result?.let { WasteOrganicExampleGridAdapter(it) }
-                                    val itemCount = adapter?.itemCount ?: 0
+                                    val adapter = WasteOrganicExampleGridAdapter(result)
+                                    val itemCount = adapter.itemCount
 
                                     return if (position == itemCount - 1 && itemCount % spanCount != 0) {
                                         spanCount
@@ -94,28 +94,28 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
                             setHasFixedSize(true)
                         }
 
-                        val adapter = result?.let { WasteOrganicExampleGridAdapter(it) }
+                        val adapter = WasteOrganicExampleGridAdapter(result)
                         binding.rvWasteExample.adapter = adapter
                         setLoading(false)
                     }
-                })
+                }
             }
             2 -> { viewModel.getEncyclopediaNonOrganic()
                 viewModel.getEncyclopediaNonOrganicExample()
-                viewModel.encNonOrganicData.observe(this, Observer { result ->
+                viewModel.encNonOrganicData.observe(this) { result ->
                     val title = result?.typeOfWaste?.title
                     val desc = result?.typeOfWaste?.description
                     val imageUrl = result?.typeOfWaste?.imageUrl
                     val howToManage = result?.typeOfWaste?.howToManage
                     setContent(title, desc, imageUrl, howToManage)
-                })
-                viewModel.encNonOrganicExampleData.observe(this, Observer { result ->
+                }
+                viewModel.encNonOrganicExampleData.observe(this) { result ->
                     if (result != null) {
                         val gridLayoutManager = GridLayoutManager(this, 2).apply {
                             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                                 override fun getSpanSize(position: Int): Int {
-                                    val adapter = result?.let { WasteNonOrganicExampleGridAdapter(it) }
-                                    val itemCount = adapter?.itemCount ?: 0
+                                    val adapter = WasteNonOrganicExampleGridAdapter(result)
+                                    val itemCount = adapter.itemCount
 
                                     return if (position == itemCount - 1 && itemCount % spanCount != 0) {
                                         spanCount
@@ -131,15 +131,15 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
                             setHasFixedSize(true)
                         }
 
-                        val adapter = result?.let { WasteNonOrganicExampleGridAdapter(it) }
+                        val adapter = WasteNonOrganicExampleGridAdapter(result)
                         binding.rvWasteExample.adapter = adapter
                         setLoading(false)
                     }
-                })
+                }
             }
             3 -> { viewModel.getEncyclopediaToxic()
                 viewModel.getEncyclopediaToxicExample()
-                viewModel.encToxicData.observe(this, Observer { result ->
+                viewModel.encToxicData.observe(this) { result ->
                     if (result != null) {
                         val title = result.typeOfWaste?.title
                         val desc = result.typeOfWaste?.description
@@ -147,14 +147,14 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
                         val howToManage = result.typeOfWaste?.howToManage
                         setContent(title, desc, imageUrl, howToManage)
                     }
-                })
-                viewModel.encToxicExampleData.observe(this, Observer { result ->
+                }
+                viewModel.encToxicExampleData.observe(this) { result ->
                     if (result != null) {
                         val gridLayoutManager = GridLayoutManager(this, 2).apply {
                             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                                 override fun getSpanSize(position: Int): Int {
-                                    val adapter = result?.let { WasteToxicExampleGrid(it) }
-                                    val itemCount = adapter?.itemCount ?: 0
+                                    val adapter = WasteToxicExampleGrid(result)
+                                    val itemCount = adapter.itemCount
 
                                     return if (position == itemCount - 1 && itemCount % spanCount != 0) {
                                         spanCount
@@ -170,11 +170,11 @@ class EncyclopediaWasteTypeActivity : AppCompatActivity() {
                             setHasFixedSize(true)
                         }
 
-                        val adapter = result?.let { WasteToxicExampleGrid(it) }
+                        val adapter = WasteToxicExampleGrid(result)
                         binding.rvWasteExample.adapter = adapter
                         setLoading(false)
                     }
-                })
+                }
             }
         }
     }

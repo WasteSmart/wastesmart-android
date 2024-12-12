@@ -20,12 +20,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.frxcl.wastesmart.R
 import com.frxcl.wastesmart.databinding.ActivityQuizBinding
-import com.frxcl.wastesmart.databinding.ActivityQuizStartBinding
 import com.frxcl.wastesmart.ui.activity.home.MainActivity
 import com.frxcl.wastesmart.ui.adapter.QuizResultListAdapter
 import com.frxcl.wastesmart.util.SettingPreferences
@@ -35,7 +33,7 @@ import com.frxcl.wastesmart.viewmodel.SettingViewModelFactory
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizBinding
-    private val factory: QuizViewModelFactory = QuizViewModelFactory.getInstance(this)
+    private val factory: QuizViewModelFactory = QuizViewModelFactory.getInstance()
     private val viewModel: QuizViewModel by viewModels {
         factory
     }
@@ -79,7 +77,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun setQuestion() {
-        viewModel.questions.observe(this, Observer { q ->
+        viewModel.questions.observe(this) { q ->
             q.let {
                 setLoading(false)
                 if (q != null) {
@@ -93,7 +91,7 @@ class QuizActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
         binding.apply {
             option1.setOnClickListener { setRadioAnswer(true) }
             option2.setOnClickListener { setRadioAnswer(true) }
@@ -103,9 +101,9 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun nextQuestion() {
-            viewModel.questions.observe(this, Observer {
+            viewModel.questions.observe(this) {
                 val selectedId = optionRadioGroup.checkedRadioButtonId
-                if (selectedId != -1 ) {
+                if (selectedId != -1) {
                     val selectedRadioButton: RadioButton = findViewById(selectedId)
                     val selectedRadioText = selectedRadioButton.text.toString()
 
@@ -123,7 +121,7 @@ class QuizActivity : AppCompatActivity() {
                         showQuizResult()
                     }
                 }
-            })
+            }
     }
 
     private fun setRadioAnswer(p1: Boolean) {
@@ -136,10 +134,10 @@ class QuizActivity : AppCompatActivity() {
         val pref = SettingPreferences.getInstance(this.dataStore)
         val settingViewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
 
-        settingViewModel.getUserName().observe(this, Observer { u ->
+        settingViewModel.getUserName().observe(this) { u ->
             val username = u.toString().split(" ").take(1).joinToString(" ")
-            binding.textViewUser.text = "Selamat $username!"
-        })
+            binding.textViewUser.text = "Selamat, $username!"
+        }
 
         binding.apply {
             quizDisplayContainer.visibility = View.GONE
@@ -154,7 +152,7 @@ class QuizActivity : AppCompatActivity() {
                 finish()
             }
             resultBtn.setOnClickListener {
-                viewModel.questions.observe(this@QuizActivity, Observer { q ->
+                viewModel.questions.observe(this@QuizActivity) { q ->
                     binding.apply {
                         quizResultDisplayContainer.visibility = View.GONE
                         backQuizResultBtn.visibility = View.VISIBLE
@@ -173,7 +171,7 @@ class QuizActivity : AppCompatActivity() {
                         val adapter = QuizResultListAdapter(q, viewModel.getUserAnswers())
                         rvQuizResultList.adapter = adapter
                     }
-                })
+                }
             }
         }
     }
@@ -212,8 +210,8 @@ class QuizActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Quiz")
             .setMessage("Apakah Kamu yakin ingin keluar")
-            .setPositiveButton("Ya") { dialog, which -> super.onBackPressed() }
-            .setNegativeButton("Tidak") { dialog, which -> dialog.dismiss() }
+            .setPositiveButton("Ya") { _, _ -> super.onBackPressed() }
+            .setNegativeButton("Tidak") { dialog, _ -> dialog.dismiss() }
             .show()
     }
 }

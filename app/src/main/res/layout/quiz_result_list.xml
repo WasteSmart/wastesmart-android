@@ -35,32 +35,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:tag="0"
-                    android:text="Option 1" />
+                    android:tag="0" />
 
                 <RadioButton
                     android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:tag="1"
-                    android:text="Option 2" />
+                    android:tag="1" />
 
                 <RadioButton
                     android:id="@+id/option3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:tag="2"
-                    android:text="Option 3" />
+                    android:tag="2" />
 
                 <RadioButton
                     android:id="@+id/option4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:tag="2"
-                    android:text="Option 4" />
+                    android:tag="2"/>
             </RadioGroup>
 
 </LinearLayout>

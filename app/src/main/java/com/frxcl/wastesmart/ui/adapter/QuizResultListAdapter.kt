@@ -1,6 +1,5 @@
 package com.frxcl.wastesmart.ui.adapter
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ class QuizResultListAdapter(
 
     override fun getItemCount(): Int = questions.size
 
-    inner class QuizViewHolder(private val binding: QuizResultListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class QuizViewHolder(binding: QuizResultListBinding) : RecyclerView.ViewHolder(binding.root) {
         private val questionText = binding.textViewQuestion
         private val radioButtons: List<RadioButton> = listOf(
             itemView.findViewById(R.id.option1),

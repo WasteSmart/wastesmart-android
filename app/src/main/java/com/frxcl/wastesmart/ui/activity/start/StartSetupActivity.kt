@@ -23,7 +23,7 @@ class StartSetupActivity : AppCompatActivity() {
             insets
         }
 
-        val moveToSetup = Intent(this, StartGuideOneActivity::class.java)
+        val moveToSetup = Intent(this, StartGuideActivity::class.java)
 
         val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in_medium)
 

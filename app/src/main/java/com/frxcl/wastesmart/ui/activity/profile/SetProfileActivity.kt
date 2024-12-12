@@ -139,6 +139,9 @@ class SetProfileActivity : AppCompatActivity() {
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
+            Toast.makeText(this,
+                "Gagal $cropError", Toast.LENGTH_LONG)
+                .show()
         }
     }
 

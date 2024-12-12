@@ -14,13 +14,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
 import com.frxcl.wastesmart.data.WasteCategoryData
-import com.frxcl.wastesmart.data.remote.response.Waste
 import com.frxcl.wastesmart.databinding.ActivityEncyclopediaBinding
 import com.frxcl.wastesmart.ui.adapter.WasteCatGridAdapter
 
@@ -50,8 +47,8 @@ class EncyclopediaActivity : AppCompatActivity() {
         }
     }
 
-    fun getData() {
-        val factory: EncyclopediaViewModelFactory = EncyclopediaViewModelFactory.getInstance(this)
+    private fun getData() {
+        val factory: EncyclopediaViewModelFactory = EncyclopediaViewModelFactory.getInstance()
         val viewModel: EncyclopediaViewModel by viewModels {
             factory
         }
@@ -59,7 +56,7 @@ class EncyclopediaActivity : AppCompatActivity() {
         setLoading(true)
 
         viewModel.getEncyclopedia()
-        viewModel.encData.observe(this, Observer { result ->
+        viewModel.encData.observe(this) { result ->
             setLoading(false)
             binding.apply {
                 if (result != null) {
@@ -69,7 +66,7 @@ class EncyclopediaActivity : AppCompatActivity() {
                     textViewDesc.text = result.waste.generalDescription
                 }
             }
-        })
+        }
 
         binding.backBtn.setOnClickListener{onBackPressed()}
 
@@ -79,11 +76,11 @@ class EncyclopediaActivity : AppCompatActivity() {
             WasteCategoryData(3, R.drawable.sample_b3_icon, "B3"),
         )
 
-        var gridLayoutManager = GridLayoutManager(this, 2).apply {
+        val gridLayoutManager = GridLayoutManager(this, 2).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     val adapter = WasteCatGridAdapter(gridItems)
-                    val itemCount = adapter?.itemCount ?: 0
+                    val itemCount = adapter.itemCount
 
                     return if (position == itemCount - 1 && itemCount % spanCount != 0) {
                         spanCount
@@ -117,7 +114,7 @@ class EncyclopediaActivity : AppCompatActivity() {
         }
     }
 
-    fun setLoading(p1: Boolean) {
+    private fun setLoading(p1: Boolean) {
         val animation = AnimationUtils.loadAnimation(this@EncyclopediaActivity, R.anim.fade_in_fast)
         binding.apply {
             if (p1) {

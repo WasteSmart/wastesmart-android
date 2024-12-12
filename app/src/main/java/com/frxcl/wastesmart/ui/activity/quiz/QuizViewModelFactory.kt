@@ -1,6 +1,5 @@
 package com.frxcl.wastesmart.ui.activity.quiz
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.frxcl.wastesmart.data.Repository
@@ -19,9 +18,9 @@ class QuizViewModelFactory private constructor(private val repository: Repositor
     companion object {
         @Volatile
         private var instance: QuizViewModelFactory? = null
-        fun getInstance(context: Context): QuizViewModelFactory =
+        fun getInstance(): QuizViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: QuizViewModelFactory(Injection.provideRepository(context))
+                instance ?: QuizViewModelFactory(Injection.provideRepository())
             }.also { instance = it }
     }
 }

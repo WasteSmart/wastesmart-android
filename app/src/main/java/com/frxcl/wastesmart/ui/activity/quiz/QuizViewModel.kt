@@ -7,7 +7,7 @@ import com.frxcl.wastesmart.data.Repository
 import com.frxcl.wastesmart.data.remote.response.QuizItem
 
 class QuizViewModel(private val repository: Repository): ViewModel() {
-    val _questions = MutableLiveData<List<QuizItem>>()
+    private val _questions = MutableLiveData<List<QuizItem>>()
     val questions: LiveData<List<QuizItem>> get() = _questions
 
     private var currentQuestionNo = 0

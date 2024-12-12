@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.frxcl.wastesmart.R
-import com.frxcl.wastesmart.databinding.ActivityQuizBinding
 import com.frxcl.wastesmart.databinding.ActivityQuizStartBinding
 
 class QuizStartActivity : AppCompatActivity() {

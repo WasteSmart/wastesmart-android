@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.frxcl.wastesmart.R
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private val handler = Handler()
     private val checkInterval: Long = 5000
 
-    private val mainfactory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
+    private val mainfactory: MainViewModelFactory = MainViewModelFactory.getInstance()
     private val mainviewModel: MainViewModel by viewModels {
         mainfactory
     }
@@ -176,7 +175,7 @@ class MainActivity : AppCompatActivity() {
         val animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.fade_in_medium)
         binding.constraintLayout7.visibility = View.GONE
         mainviewModel.getFunFacts()
-        mainviewModel.funFactsData.observe(this, Observer { result ->
+        mainviewModel.funFactsData.observe(this) { result ->
             result?.let {
                 val funFacts = it[Random.nextInt(0, result.size)]
                 binding.apply {
@@ -187,7 +186,7 @@ class MainActivity : AppCompatActivity() {
                     constraintLayout7.startAnimation(animation)
                 }
             }
-        })
+        }
     }
 
     private fun loadUserPfp() {
@@ -223,12 +222,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hasCameraPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun hasFilePermission(): Boolean {
-        val write = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        val read =  ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        val write = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        val read =  ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         return write && read
     }
 
@@ -300,7 +299,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ServiceCast", "ObsoleteSdkInt")
     fun isConnectionOk(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        return if (SDK_INT >= Build.VERSION_CODES.M) {
             val networkCapabilities = connectivityManager.activeNetwork?.let {
                 connectivityManager.getNetworkCapabilities(it)
             }

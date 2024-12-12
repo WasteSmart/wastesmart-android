@@ -3,14 +3,8 @@ package com.frxcl.wastesmart.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.frxcl.wastesmart.data.Repository
-import com.frxcl.wastesmart.data.remote.response.EncyclopediaOrganicResponse
-import com.frxcl.wastesmart.data.remote.response.PredictResponse
-import com.frxcl.wastesmart.data.remote.response.ResultItem
 import com.frxcl.wastesmart.data.remote.response.TipsResponse
-import kotlinx.coroutines.launch
-import java.io.File
 
 class MainViewModel(private val repository: Repository): ViewModel() {
     private val _funFactsData = MutableLiveData<List<String?>?>()

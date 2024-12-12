@@ -1,6 +1,5 @@
 package com.frxcl.wastesmart.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.frxcl.wastesmart.data.Repository
@@ -19,9 +18,9 @@ class MainViewModelFactory private constructor(private val repository: Repositor
     companion object {
         @Volatile
         private var instance: MainViewModelFactory? = null
-        fun getInstance(context: Context): MainViewModelFactory =
+        fun getInstance(): MainViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: MainViewModelFactory(Injection.provideRepository(context))
+                instance ?: MainViewModelFactory(Injection.provideRepository())
             }.also { instance = it }
     }
 }

@@ -81,7 +81,7 @@ class CameraActivity : AppCompatActivity() {
                 }
 
             imageCapture = ImageCapture.Builder()
-                .setFlashMode(ImageCapture.FLASH_MODE_OFF)
+                .setFlashMode(FLASH_MODE_OFF)
                 .build()
 
             try {
@@ -108,12 +108,16 @@ class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         setLoading(true)
 
-        if (isFlashOn == 1) {
-            imageCapture.flashMode = FLASH_MODE_AUTO
-        } else if (isFlashOn == 2) {
-            imageCapture.flashMode = FLASH_MODE_ON
-        } else {
-            imageCapture.flashMode = FLASH_MODE_OFF
+        when (isFlashOn) {
+            1 -> {
+                imageCapture.flashMode = FLASH_MODE_AUTO
+            }
+            2 -> {
+                imageCapture.flashMode = FLASH_MODE_ON
+            }
+            else -> {
+                imageCapture.flashMode = FLASH_MODE_OFF
+            }
         }
 
         val imageCapture = imageCapture
@@ -157,18 +161,22 @@ class CameraActivity : AppCompatActivity() {
 
     private fun toggleFlash () {
         val flashButton = binding.imageButtonFlash
-        if (isFlashOn == 0) {
-            imageCapture.flashMode = FLASH_MODE_AUTO
-            flashButton.setImageResource(R.drawable.baseline_flash_auto_32)
-            isFlashOn = 1
-        } else if(isFlashOn == 1) {
-            imageCapture.flashMode = FLASH_MODE_ON
-            flashButton.setImageResource(R.drawable.baseline_flash_on_32)
-            isFlashOn = 2
-        } else {
-            imageCapture.flashMode = FLASH_MODE_OFF
-            flashButton.setImageResource(R.drawable.baseline_flash_off_32)
-            isFlashOn = 0
+        when (isFlashOn) {
+            0 -> {
+                imageCapture.flashMode = FLASH_MODE_AUTO
+                flashButton.setImageResource(R.drawable.baseline_flash_auto_32)
+                isFlashOn = 1
+            }
+            1 -> {
+                imageCapture.flashMode = FLASH_MODE_ON
+                flashButton.setImageResource(R.drawable.baseline_flash_on_32)
+                isFlashOn = 2
+            }
+            else -> {
+                imageCapture.flashMode = FLASH_MODE_OFF
+                flashButton.setImageResource(R.drawable.baseline_flash_off_32)
+                isFlashOn = 0
+            }
         }
     }
 

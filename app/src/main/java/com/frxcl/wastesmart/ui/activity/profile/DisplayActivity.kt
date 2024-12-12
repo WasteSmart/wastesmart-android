@@ -47,7 +47,7 @@ class DisplayActivity : AppCompatActivity() {
         }
     }
 
-    fun getThemeSettingToDataStore() {
+    private fun getThemeSettingToDataStore() {
         viewModel.getThemeSetting().observe(this) { state : Int? ->
             when (state) {
                 0 -> {
