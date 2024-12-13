@@ -13,10 +13,12 @@ Using waste detection scan features, an encyclopedia, interactive tests, fascina
 
 ## Library
 * Retrofit
-* Okhttp
+* Okhttp3
 * CameraX
 * uCrop
 * MVVM
+* Datastore
+* Glide
 
 ## Tools
 <p align="left"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Android_Studio_Logo_2024.svg/220px-Android_Studio_Logo_2024.svg.png" width="40"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/220px-Figma-logo.svg.png" width="40"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Postman_%28software%29.png/512px-Postman_%28software%29.png" width="100"/></p>
