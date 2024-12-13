@@ -2,6 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,27 +28,86 @@
         android:theme="@style/Theme.WasteSmart"
         tools:targetApi="31">
         <activity
-            android:name=".EncyclopediaDetailActivity"
+            android:name=".ui.activity.start.RequestPermissionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.encyclopedia.EncyclopediaActivity"
+            android:name=".ui.activity.start.StartGuideFourActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.start.StartGuideActivity"
+            android:name=".ui.activity.start.StartGuideThreeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.start.StartActivity"
+            android:name=".ui.activity.start.StartGuideTwoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.scan.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.encyclopedia.EncyclopediaWasteTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.DisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.start.StartSetupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.SetProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.scan.ScanResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.quiz.QuizFinishActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.quiz.QuizActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.quiz.QuizStartActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.profile.ProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.encyclopedia.EncyclopediaWasteExampleActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.encyclopedia.EncyclopediaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.start.StartGuideActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.home.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.activity.start.StartActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
